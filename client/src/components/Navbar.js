@@ -1,9 +1,13 @@
 import React from 'react';
 import yakKabLogo from '../img/yakKabLogoWhite.svg';
 
+const navStyles = {
+  backgroundColor: '#231f20',
+};
+
 const Navbar = (props) => {
   return (
-    <nav className='navbar navbar-dark bg-dark navbar-expand-sm'>
+    <nav className='navbar navbar-dark navbar-expand-sm' style={navStyles}>
       <a href='/home' className='navbar-brand ml-3'>
         <img
           className='d-inline-block align-top'

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import AppRouter from './AppRouter';
 import { BrowserRouter } from 'react-router-dom';
 

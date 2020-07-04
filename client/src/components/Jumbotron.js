@@ -10,7 +10,10 @@ const jumboStyles = {
 
 const Jumbotron = () => {
   return (
-    <div className='jumbotron jumbotron-fluid text-light' style={jumboStyles}>
+    <section
+      className='jumbotron jumbotron-fluid text-light mb-5'
+      style={jumboStyles}
+    >
       <div className='container d-flex flex-column align-items-end'>
         <h1 className='display-3'>Welcome to Yak-Kab</h1>
         <p className='lead mb-2 mr-3 my-3'>The Etowah River pickup service</p>
@@ -25,7 +28,7 @@ const Jumbotron = () => {
           </a>
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 
