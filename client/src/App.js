@@ -1,12 +1,8 @@
 import React, { Fragment } from 'react';
-import './App.css';
+import AppRouter from './AppRouter';
 
 function App() {
-  return (
-    <Fragment>
-      <h1>App</h1>
-    </Fragment>
-  );
+  return <AppRouter />;
 }
 
 export default App;
