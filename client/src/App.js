@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import AppRouter from './AppRouter';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
-  return <AppRouter />;
-}
+const App = () => (
+  <BrowserRouter>
+    <AppRouter />
+  </BrowserRouter>
+);
 
 export default App;
