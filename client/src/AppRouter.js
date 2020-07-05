@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CreateAccount from './components/CreateAccount';
 
 const AppRouter = () => {
   return (
@@ -10,6 +11,7 @@ const AppRouter = () => {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route path='/create-account' component={CreateAccount} />
       </Switch>
       <Footer />
     </div>
