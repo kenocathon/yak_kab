@@ -12,7 +12,7 @@ const imageStyles = {
 
 const MainContent = (props) => {
   return (
-    <div className='container pt-4'>
+    <div className='container py-4 mb-5'>
       <div className='row row-cols-1 row-cols-md-3'>
         <div className='col mb-4  bg-light'>
           <div className='card h-100 text-center border-light'>
@@ -42,8 +42,8 @@ const MainContent = (props) => {
             <div className='card-body'>
               <h5 className='card-title'>Float the river</h5>
               <p className='card-text'>
-                There are scheduled pickup times or you can schedule a custom
-                pickup for you and your boat.
+                Enjoy the day floating the Etowah River without the worry of how
+                everyone will get back to their vehicles
               </p>
             </div>
           </div>

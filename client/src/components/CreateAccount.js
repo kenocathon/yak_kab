@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { create } from '../user/api-user';
 
 export default function CreateAccount() {
@@ -10,7 +10,17 @@ export default function CreateAccount() {
     password: '',
     openDialog: false,
     error: '',
+    frameHeight: '',
   });
+
+  const wrapperStyles = {
+    height: values.frameHeight - 290,
+  };
+
+  useEffect(() => {
+    const innerFrameHeight = window.innerHeight;
+    setValues({ frameHeight: innerFrameHeight });
+  }, [values.frameHeight]);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
@@ -34,57 +44,71 @@ export default function CreateAccount() {
   };
 
   return (
-    <div className='d-flex aigin-items-center justify-content-center my-5'>
-      <form className='text-center' onSubmit={clickSubmit}>
-        <h1 className='mb-5 font-weight-light text-uppercase'>
-          Create Account
-        </h1>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='First Name'
-            className='form-control'
-            onChange={handleChange('firstName')}
-            value={values.firstName}
-          />
+    <div className='container p-5 mt-5' style={wrapperStyles}>
+      <h2 className='display-4'>Create Account</h2>
+      <form action='' className='h-100 p-2 ' onSubmit={clickSubmit}>
+        <div className='form-row my-2'>
+          <div className='col-lg-6'>
+            <label htmlFor='firstName'>First Name</label>
+            <input
+              type='text'
+              name='firstName'
+              id='firstName'
+              className='form-control'
+              required
+              onChange={handleChange('firstName')}
+            />
+          </div>
+          <div className='col-lg-6'>
+            <label htmlFor='lastName'>Last Name</label>
+            <input
+              type='text'
+              name='lastName'
+              id='lastName'
+              className='form-control'
+              required
+              onChange={handleChange('lastName')}
+            />
+          </div>
         </div>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Last Name'
-            className='form-control'
-            onChange={handleChange('lastName')}
-            value={values.lastName}
-          />
+        <div className='form-row my-2'>
+          <div className='col-lg-6'>
+            <label htmlFor='email'>Email</label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              className='form-control'
+              required
+              onChange={handleChange('email')}
+            />
+          </div>
+          <div className='col-lg-6'>
+            <label htmlFor='phoneNumber'>Phone Number</label>
+            <input
+              type='text'
+              name='phoneNumber'
+              id='phoneNumber'
+              className='form-control'
+              required
+              onChange={handleChange('phoneNumber')}
+            />
+          </div>
         </div>
-        <div className='form-group'>
-          <input
-            type='text'
-            placeholder='Phone Number'
-            className='form-control'
-            onChange={handleChange('phoneNumber')}
-            value={values.phoneNumber}
-          />
+        <div className='form-row'>
+          <div className='col-lg'>
+            <label htmlFor='email'>Password</label>
+            <input
+              type='password'
+              name='password'
+              id='password'
+              className='form-control'
+              required
+              onChange={handleChange('password')}
+            />
+          </div>
         </div>
-        <div className='form-group'>
-          <input
-            type='email'
-            placeholder='Email'
-            className='form-control'
-            onChange={handleChange('email')}
-            value={values.email}
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            placeholder='password'
-            className='form-control'
-            onChange={handleChange('password')}
-            value={values.password}
-          />
-        </div>
-        <button type='submit' className='btn btn-primary btn-block'>
+        <button type='submit' className='btn btn-success btn-lg btn-block mt-4'>
           Create Account
         </button>
       </form>

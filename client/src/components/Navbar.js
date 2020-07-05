@@ -8,7 +8,7 @@ const navStyles = {
 const Navbar = (props) => {
   return (
     <nav className='navbar navbar-dark navbar-expand-sm' style={navStyles}>
-      <a href='/home' className='navbar-brand ml-3'>
+      <a href='/' className='navbar-brand ml-3'>
         <img
           className='d-inline-block align-top'
           loading='lazy'
@@ -32,22 +32,22 @@ const Navbar = (props) => {
       <div className='collapse navbar-collapse' id='navbarSupportedContent'>
         <ul className='navbar-nav mr-auto'>
           <li className='nav-item active'>
-            <a className='nav-link' href='#'>
+            <a className='nav-link' href='/'>
               Home <span className='sr-only'>(current)</span>
             </a>
           </li>
           <li className='nav-item'>
-            <a className='nav-link' href='#'>
+            <a className='nav-link' href='/pricing'>
               Pricing
             </a>
           </li>
           <li className='nav-item'>
-            <a className='nav-link' href='#'>
+            <a className='nav-link' href='/scheduling'>
               Scheduling
             </a>
           </li>
           <li className='nav-item'>
-            <a className='nav-link' href='#'>
+            <a className='nav-link' href='/login'>
               Sign In
             </a>
           </li>
