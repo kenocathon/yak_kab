@@ -51,8 +51,8 @@ export default function SignIn(props) {
   }
 
   return (
-    <div className='container p-5 mt-5' style={wrapperStyles}>
-      <h2 className='display-4'>Sign In</h2>
+    <div className='container mt-5 pt-5' style={wrapperStyles}>
+      <h2 className='display-4 '>Sign In</h2>
       <form action='' className='h-100 p-2' onSubmit={clickSubmit}>
         <div className='form-group row'>
           <div className='col-sm-8'>
@@ -61,7 +61,7 @@ export default function SignIn(props) {
               type='email'
               name='email'
               id='email'
-              className='form-control'
+              className='form-control my-2'
               required
               onChange={handleChange('email')}
             />
