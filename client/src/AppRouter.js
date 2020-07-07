@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import CreateAccount from './components/CreateAccount';
 import SignIn from './components/SignIn';
 import Pricing from './components/Pricing';
+import Contact from './components/Contact';
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
         <Route path='/create-account' component={CreateAccount} />
         <Route path='/login' component={SignIn} />
         <Route path='/pricing' component={Pricing} />
+        <Route path='/contact' component={Contact} />
       </Switch>
       <Footer />
     </div>

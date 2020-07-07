@@ -14,13 +14,8 @@ export default function CreateAccount() {
   });
 
   const wrapperStyles = {
-    height: values.frameHeight - 290,
+    height: window.outerHeight - 250,
   };
-
-  useEffect(() => {
-    const innerFrameHeight = window.innerHeight;
-    setValues({ frameHeight: innerFrameHeight });
-  }, [values.frameHeight]);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });

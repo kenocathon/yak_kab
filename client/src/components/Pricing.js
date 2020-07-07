@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const Pricing = () => {
-  const [style, setStyle] = useState({
-    frameheight: '',
-  });
-
   const wrapperStyles = {
-    height: style.frameHeight - 240,
+    height: window.outerHeight - 200,
   };
-
-  useEffect(() => {
-    const innerFrameHeight = window.innerHeight;
-    setStyle({ frameHeight: innerFrameHeight });
-  }, [style.frameHeight]);
 
   return (
     <div className='container' style={wrapperStyles}>

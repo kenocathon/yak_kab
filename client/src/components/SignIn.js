@@ -1,30 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { signin } from '../auth/api-auth';
 import { Redirect } from 'react-router-dom';
+import auth from '../auth/auth-helper';
 
 export default function SignIn(props) {
   const [values, setValues] = useState({
     email: '',
     password: '',
-    redirectToSignup: false,
     frameHeight: '',
     error: '',
+    redirectToReferrer: false,
   });
 
   const wrapperStyles = {
-    height: values.frameHeight - 290,
+    height: window.outerHeight - 250,
   };
-
-  useEffect(() => {
-    const innerFrameHeight = window.innerHeight;
-    setValues({ frameHeight: innerFrameHeight });
-  }, [values.frameHeight]);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const clickSubmit = () => {
+  const clickSubmit = (e) => {
+    e.preventDefault();
     const user = {
       email: values.email || undefined,
       password: values.password || undefined,
@@ -32,8 +29,12 @@ export default function SignIn(props) {
     signin(user).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
+        console.error(values.error);
       } else {
-        setValues({ ...values, error: '', redirectToSignup: true });
+        auth.authenticate(data, () => {
+          setValues({ ...values, error: '', redirectToReferrer: true });
+          console.log(values.redirectToReferrer);
+        });
       }
     });
   };
@@ -44,9 +45,9 @@ export default function SignIn(props) {
     },
   };
 
-  const { redirectToSignup } = values;
+  const { redirectToReferrer } = values;
 
-  if (redirectToSignup) {
+  if (redirectToReferrer) {
     return <Redirect to={from} />;
   }
 
@@ -82,6 +83,9 @@ export default function SignIn(props) {
             >
               Submit
             </button>
+            {values.error && (
+              <p className='bg-error'>`Error: ${values.error}`</p>
+            )}
           </div>
         </div>
       </form>
