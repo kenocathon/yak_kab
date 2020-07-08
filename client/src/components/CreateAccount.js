@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { create } from '../user/api-user';
 
 export default function CreateAccount() {

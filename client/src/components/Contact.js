@@ -41,7 +41,7 @@ const Contact = () => {
               className='form-control'
               required
               placeholder='required'
-              onChange={handleChange}
+              onChange={handleChange('name')}
             />
             <label htmlFor='email' className='my-2'>
               Email
@@ -53,7 +53,7 @@ const Contact = () => {
               className='form-control'
               required
               placeholder='required'
-              onChange={handleChange}
+              onChange={handleChange('email')}
             />
             <label htmlFor='phoneNumber' className='my-2'>
               Phone Number
@@ -64,7 +64,7 @@ const Contact = () => {
               id='phoneNumber'
               className='form-control'
               placeholder='optional'
-              onChange={handleChange}
+              onChange={handleChange('phoneNumber')}
             />
             <label htmlFor='message' className='my-2'>
               Message
@@ -75,7 +75,7 @@ const Contact = () => {
               cols='30'
               rows='10'
               className='form-control mb-4'
-              onChange={handleChange}
+              onChange={handleChange('message')}
             >
               Message
             </textarea>

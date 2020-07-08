@@ -1,19 +1,15 @@
 import React from 'react';
 import yakKabLogo from '../img/yakKabLogoWhite.svg';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter, NavLink, Link } from 'react-router-dom';
+import auth from '../auth/auth-helper';
 
 const navStyles = {
   backgroundColor: '#231f20',
 };
 
-const isActive = (history, path) => {
-  if (history.location.pathname == path) return 'active';
-  else return '';
-};
-
 const Navbar = withRouter(({ history }) => (
   <nav className='navbar navbar-dark navbar-expand-sm' style={navStyles}>
-    <NavLink to='/' className='navbar-brand'>
+    <Link to='/' className='navbar-brand'>
       <img
         className='d-inline-block align-top ml-5'
         loading='lazy'
@@ -21,7 +17,7 @@ const Navbar = withRouter(({ history }) => (
         alt='Yak Kab Logo'
         width='100px'
       />
-    </NavLink>
+    </Link>
     <button
       className='navbar-toggler'
       type='button'
@@ -38,30 +34,61 @@ const Navbar = withRouter(({ history }) => (
       <ul className='navbar-nav ml-auto mr-5'>
         <li className='nav-item'>
           <NavLink exact activeClassName='active' className='nav-link' to='/'>
-            Home <span className='sr-only'>(current)</span>
+            Home
           </NavLink>
         </li>
-        <li className='nav-item' activeClassName='active'>
-          <NavLink className='nav-link' to='/pricing'>
+        <li className='nav-item'>
+          <NavLink
+            exact
+            className='nav-link'
+            to='/pricing'
+            activeClassName='active'
+          >
             Pricing
           </NavLink>
         </li>
-        <li className='nav-item' activeClassName='active'>
-          <NavLink className='nav-link' to='/contact'>
+        <li className='nav-item'>
+          <NavLink
+            exact
+            className='nav-link'
+            to='/contact'
+            activeClassName='active'
+          >
             Contact Us
           </NavLink>
         </li>
-        <li className='nav-item' activeClassName='active'>
-          <NavLink className='nav-link' to='/login'>
-            Sign In
-          </NavLink>
-        </li>
+
+        {!auth.isAuthenticated() ? (
+          <li className='nav-item'>
+            <NavLink
+              exact
+              className='nav-link'
+              to='/login'
+              activeClassName='active'
+            >
+              Sign In
+            </NavLink>
+          </li>
+        ) : (
+          <li className='nav-item'>
+            <NavLink
+              exact
+              className='nav-link'
+              to='/account'
+              activeClassName='active'
+            >
+              Account
+            </NavLink>
+          </li>
+        )}
       </ul>
-      <NavLink to='/create-account' activeClassName='active'>
-        <button className='btn btn-outline-light my-2 my-sm-0 mr-2'>
-          Create Account
-        </button>
-      </NavLink>
+      {!auth.isAuthenticated() && (
+        <NavLink exact to='/create-account' activeClassName='active'>
+          <button className='btn btn-outline-light my-2 my-sm-0 mr-2'>
+            Create Account
+          </button>
+        </NavLink>
+      )}
     </div>
   </nav>
 ));

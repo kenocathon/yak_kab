@@ -59,7 +59,7 @@ const hasAuthorization = (req, res, next) => {
   if (!authorized) {
     return res.status('403').json({
       error: 'User is not authorized',
-      req: `auth: ${req.auth.iat}`,
+      req: `auth: ${req.auth._id}`,
     });
   }
   next();

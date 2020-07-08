@@ -8,8 +8,8 @@ const Pricing = () => {
   return (
     <div className='container' style={wrapperStyles}>
       <h2 className='display-4 my-5'>Pricing</h2>
-      <table class='table h-50'>
-        <thead class='thead-dark'>
+      <table className='table h-50'>
+        <thead className='thead-dark'>
           <tr>
             <th scope='col'>Service</th>
             <th scope='col'>Price</th>

@@ -14,9 +14,10 @@ const create = async (user) => {
   }
 };
 
-const read = async (params, credentials, signal) => {
+const read = async (id, credentials, signal) => {
   try {
-    let response = await fetch('/api/users/' + params.userId, {
+    console.log(id);
+    let response = await fetch('/api/users/' + id, {
       method: 'GET',
       signal,
       headers: {
