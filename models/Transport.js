@@ -5,19 +5,22 @@ const TransportSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  pickUpLocation: {
-    type: String,
-    require: true,
-    trim: true,
-  },
-  dropOffLocation: {
-    type: String,
-    require: true,
-    trim: true,
-  },
-  pickUpDate: {
+  tripDate: {
     type: Date,
-    default: Date.now,
+  },
+  customTrip: {
+    dropOffLocation: {
+      type: String,
+    },
+    pickUpLocation: {
+      type: String,
+    },
+    pickUpTime: {
+      type: String,
+    },
+  },
+  shuttlePackage: {
+    type: String,
   },
 });
 

@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Transport = require('../models/Transport');
+const Address = require('../models/Address');
 const extend = require('lodash/extend');
 const errorHandler = require('../helpers/dbErrorHandler');
 
@@ -42,10 +43,11 @@ module.exports = {
     req.profile.hashed_password = undefined;
     req.profile.salt = undefined;
     try {
-      console.log(req.profile);
       return res.json(req.profile);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err),
+      });
     }
   },
 
@@ -70,7 +72,7 @@ module.exports = {
       await user.save();
       user.hashed_password = undefined;
       user.salt = undefined;
-      res.json(user);
+      res.status(200).json(user);
     } catch (err) {
       console.error(err);
       return res.status(400).json({
@@ -93,7 +95,54 @@ module.exports = {
     }
   },
 
-  // Control for Transports
+  // Controls for the users Address
+  createAddress: async (req, res) => {
+    const address = new Address(req.body);
+    const user = req.profile;
+    try {
+      address.user = user;
+      await address.save();
+      user.address = address;
+      await user.save();
+      return res.status(200).json({
+        message: 'Address added to user',
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err),
+      });
+    }
+  },
+
+  readAddress: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const user = await User.findById(userId).populate('address');
+      return res.json(user.address);
+    } catch (error) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err),
+      });
+    }
+  },
+
+  updateAddress: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      let user = await User.findById(userId).populate('address');
+      let address = user.address;
+      address = extend(address, req.body);
+      await address.save();
+      res.status(200).json(address);
+    } catch (err) {
+      console.error(err);
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err),
+      });
+    }
+  },
+
+  // Controls for Transports
   createTrans: async (req, res) => {
     const transport = new Transport(req.body);
     const user = req.profile;

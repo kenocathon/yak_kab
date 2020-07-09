@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
       ref: 'transport',
     },
   ],
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'address',
+  },
   hashed_password: {
     type: String,
     required: 'Password is required',

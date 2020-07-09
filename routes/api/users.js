@@ -1,6 +1,7 @@
 const express = require('express');
 const userCtrl = require('../../controllers/user');
 const authCtrl = require('../../controllers/auth');
+const { createAddress } = require('../../controllers/user');
 const router = express.Router();
 
 // USER ROUTES
@@ -11,6 +12,17 @@ router
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
+
+// ADDRESS ROUTES
+router
+  .route('/:userId/address')
+  .post(authCtrl.requireSignin, authCtrl.hasAuthorization, createAddress)
+  .get(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.readAddress)
+  .put(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorization,
+    userCtrl.updateAddress
+  );
 
 // TRANSPORT ROUTES
 router
