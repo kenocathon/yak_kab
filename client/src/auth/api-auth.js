@@ -24,4 +24,10 @@ const signout = async () => {
   }
 };
 
-export { signin, signout };
+const findId = () => {
+  const token = JSON.parse(localStorage.getItem('jwt'));
+  const id = token.user._id;
+  return id;
+};
+
+export { signin, signout, findId };

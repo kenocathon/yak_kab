@@ -16,7 +16,6 @@ const create = async (user) => {
 
 const read = async (id, credentials, signal) => {
   try {
-    console.log(id);
     let response = await fetch('/api/users/' + id, {
       method: 'GET',
       signal,

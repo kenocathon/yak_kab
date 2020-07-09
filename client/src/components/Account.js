@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import Dashboard from './Dashboard';
 import Profile from './Profile';
 
 const Account = () => {
@@ -9,11 +9,11 @@ const Account = () => {
         <li className='nav-item'>
           <a
             className='nav-link active'
-            id='transport-tab'
+            id='dashboard-tab'
             data-toggle='tab'
-            href='#transport'
+            href='#dashboard'
             role='tab'
-            aria-controls='transport'
+            aria-controls='dashboard'
             aria-selected='true'
           >
             Transports
@@ -49,11 +49,11 @@ const Account = () => {
       <div className='tab-content' id='myTabContent'>
         <div
           className='tab-pane fade show active'
-          id='transport'
+          id='dashboard'
           role='tabpanel'
-          aria-labelledby='home-tab'
+          aria-labelledby='dashboard-tab'
         >
-          ...
+          <Dashboard />
         </div>
         <div
           className='tab-pane fade'

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
 import { read } from '../user/api-user';
+import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
 
 const Profile = () => {
@@ -18,16 +19,14 @@ const Profile = () => {
   });
   const [redirectToSignin, setRedirectToSignin] = useState(false);
 
-  const token = JSON.parse(localStorage.getItem('jwt'));
-  const id = token.user._id;
+  const id = findId();
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
     const jwt = auth.isAuthenticated();
-    console.log(jwt);
+
     read(id, { t: jwt.token }, signal).then((data) => {
-      console.log(data);
       if (data && data.error) {
         setRedirectToSignin(true);
       } else {
@@ -78,7 +77,7 @@ const Profile = () => {
 
         <fieldset className='row p-3'>
           <legend className='mb-0'>
-            Address{' '}
+            Address
             <span className='lead small'>
               (Must be filled out for home pickups)
             </span>
