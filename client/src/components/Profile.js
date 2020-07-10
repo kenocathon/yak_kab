@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
 import { read } from '../user/api-user';
+import { readAddress } from '../user/api-address';
 import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
 
@@ -12,9 +13,11 @@ const Profile = () => {
     phoneNumber: '',
     email: '',
     password: '',
+  });
+  const [address, setAddress] = useState({
     street: '',
     city: '',
-    state: '',
+    state: 'GA',
     zipCode: '',
   });
   const [redirectToSignin, setRedirectToSignin] = useState(false);
@@ -33,10 +36,25 @@ const Profile = () => {
         setUser({ ...user, ...data });
       }
     });
-    return function cleanUp() {
+    return () => {
       abortController.abort();
     };
   }, [id]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    const jwt = auth.isAuthenticated();
+
+    readAddress(id, { t: jwt.token }, signal).then((data) => {
+      if (address) {
+        console.log('address exists');
+      }
+    });
+    return () => {
+      abortController.abort();
+    };
+  }, [id, address]);
 
   const handleChange = (name) => (event) => {
     setUser({ ...user, [name]: event.target.value });
