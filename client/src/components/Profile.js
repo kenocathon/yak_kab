@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
-import { read } from '../user/api-user';
+import { read, update, remove } from '../user/api-user';
 import { readAddress, updateAddress, createAddress } from '../user/api-address';
 import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
@@ -86,6 +86,7 @@ const Profile = () => {
       createAddress(id, { t: jwt.token }, address);
       setSuccessMsg('Your address has been added to your profile');
     }
+    update(id, { t: jwt.token }, user);
     setFormChange(true);
   };
 
