@@ -1,0 +1,51 @@
+import React, { useState, useEffect } from 'react';
+import readAddress from '../user/api-address';
+import { findId } from '../auth/api-auth';
+import auth from '../auth/auth-helper';
+import FormInput from './FormInput';
+
+const Address = (props) => {
+  const { street, state, city, zipCode } = props.address;
+  return (
+    <fieldset className='row p-3'>
+      <legend className='mb-0'>
+        Address
+        <span className='lead small'>
+          (Must be filled out for home pickups)
+        </span>
+      </legend>
+      <FormInput
+        label='Street'
+        name='street'
+        value={street}
+        handleChange={props.handleChange('street')}
+      />
+      <FormInput
+        label='City'
+        name='city'
+        value={city}
+        handleChange={props.handleChange('city')}
+      />
+      <FormInput
+        label='State'
+        name='state'
+        value={state}
+        handleChange={props.handleChange('state')}
+      />
+      <FormInput
+        label='Zipcode'
+        name='zipcode'
+        value={zipCode}
+        handleChange={props.handleChange('zipCode')}
+      />
+      <button
+        className='btn btn-success btn-block btn-lg my-5 col-md-9'
+        required
+      >
+        Submit
+      </button>
+    </fieldset>
+  );
+};
+
+export default Address;

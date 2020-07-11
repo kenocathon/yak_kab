@@ -1,96 +1,114 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import yakKabLogo from '../img/yakKabLogoWhite.svg';
 import { withRouter, NavLink, Link } from 'react-router-dom';
 import auth from '../auth/auth-helper';
+import { signout } from '../auth/api-auth';
 
 const navStyles = {
   backgroundColor: '#231f20',
 };
 
-const Navbar = withRouter(({ history }) => (
-  <nav className='navbar navbar-dark navbar-expand-sm' style={navStyles}>
-    <Link to='/' className='navbar-brand'>
-      <img
-        className='d-inline-block align-top ml-5'
-        loading='lazy'
-        src={yakKabLogo}
-        alt='Yak Kab Logo'
-        width='100px'
-      />
-    </Link>
-    <button
-      className='navbar-toggler'
-      type='button'
-      data-toggle='collapse'
-      data-target='#navbarSupportedContent'
-      aria-controls='navbarSupportedContent'
-      aria-expanded='false'
-      aria-label='Toggle navigation'
-    >
-      <span className='navbar-toggler-icon'></span>
-    </button>
+const Navbar = withRouter(({ history }) => {
+  return (
+    <nav className='navbar navbar-dark navbar-expand-sm' style={navStyles}>
+      <Link to='/' className='navbar-brand'>
+        <img
+          className='d-inline-block align-top ml-5'
+          src={yakKabLogo}
+          alt='Yak Kab Logo'
+          width='100px'
+        />
+      </Link>
+      <button
+        className='navbar-toggler'
+        type='button'
+        data-toggle='collapse'
+        data-target='#navbarSupportedContent'
+        aria-controls='navbarSupportedContent'
+        aria-expanded='false'
+        aria-label='Toggle navigation'
+      >
+        <span className='navbar-toggler-icon'></span>
+      </button>
 
-    <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-      <ul className='navbar-nav ml-auto mr-5'>
-        <li className='nav-item'>
-          <NavLink exact activeClassName='active' className='nav-link' to='/'>
-            Home
-          </NavLink>
-        </li>
-        <li className='nav-item'>
-          <NavLink
-            exact
-            className='nav-link'
-            to='/pricing'
-            activeClassName='active'
-          >
-            Pricing
-          </NavLink>
-        </li>
-        <li className='nav-item'>
-          <NavLink
-            exact
-            className='nav-link'
-            to='/contact'
-            activeClassName='active'
-          >
-            Contact Us
-          </NavLink>
-        </li>
-
-        {!auth.isAuthenticated() ? (
+      <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+        <ul className='navbar-nav ml-auto mr-5'>
+          <li className='nav-item'>
+            <NavLink exact activeClassName='active' className='nav-link' to='/'>
+              Home
+            </NavLink>
+          </li>
           <li className='nav-item'>
             <NavLink
               exact
               className='nav-link'
-              to='/login'
+              to='/pricing'
               activeClassName='active'
             >
-              Sign In
+              Pricing
             </NavLink>
           </li>
-        ) : (
           <li className='nav-item'>
             <NavLink
               exact
               className='nav-link'
-              to='/account'
+              to='/contact'
               activeClassName='active'
             >
-              Account
+              Contact Us
             </NavLink>
           </li>
-        )}
-      </ul>
-      {!auth.isAuthenticated() && (
-        <NavLink exact to='/create-account' activeClassName='active'>
-          <button className='btn btn-outline-light my-2 my-sm-0 mr-2'>
-            Create Account
-          </button>
-        </NavLink>
-      )}
-    </div>
-  </nav>
-));
+
+          {!auth.isAuthenticated() ? (
+            <Fragment>
+              <li className='nav-item'>
+                <NavLink
+                  exact
+                  className='nav-link'
+                  to='/login'
+                  activeClassName='active'
+                >
+                  Sign In
+                </NavLink>
+              </li>
+              <li>
+                <NavLink exact to='/create-account' activeClassName='active'>
+                  <button className='btn btn-outline-light my-2 my-sm-0 mr-2'>
+                    Create Account
+                  </button>
+                </NavLink>
+              </li>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <li className='nav-item'>
+                <NavLink
+                  exact
+                  className='nav-link'
+                  to='/account'
+                  activeClassName='active'
+                >
+                  Account
+                </NavLink>
+              </li>
+              <li>
+                <NavLink exact to='/' activeClassName='active'>
+                  <button
+                    className='btn btn-outline-light my-2 my-sm-0 mr-2'
+                    onClick={() => {
+                      auth.clearJWT(() => history.push('/'));
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </NavLink>
+              </li>
+            </Fragment>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+});
 
 export default Navbar;

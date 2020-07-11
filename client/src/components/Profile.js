@@ -2,9 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
 import { read } from '../user/api-user';
-import { readAddress } from '../user/api-address';
+import { readAddress, updateAddress, createAddress } from '../user/api-address';
 import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
+import Address from './Address';
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -14,26 +15,35 @@ const Profile = () => {
     email: '',
     password: '',
   });
+
   const [address, setAddress] = useState({
     street: '',
     city: '',
-    state: 'GA',
+    state: '',
     zipCode: '',
   });
+
+  const [addressExists, setAddressExists] = useState(false);
   const [redirectToSignin, setRedirectToSignin] = useState(false);
+  const [error, setError] = useState('');
 
   const id = findId();
+  const jwt = auth.isAuthenticated();
+
+  console.log(address);
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    const jwt = auth.isAuthenticated();
 
-    read(id, { t: jwt.token }, signal).then((data) => {
+    readAddress(id, { t: jwt.token }, signal).then((data) => {
       if (data && data.error) {
         setRedirectToSignin(true);
       } else {
-        setUser({ ...user, ...data });
+        if (!data.mssg) {
+          setAddressExists(true);
+        }
+        setAddress({ ...address, ...data });
       }
     });
     return () => {
@@ -44,26 +54,42 @@ const Profile = () => {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    const jwt = auth.isAuthenticated();
 
-    readAddress(id, { t: jwt.token }, signal).then((data) => {
-      if (address) {
-        console.log('address exists');
+    read(id, { t: jwt.token }, signal).then((data) => {
+      if (data && data.error) {
+        setRedirectToSignin(true);
+      } else {
+        setUser({ ...user, ...data });
       }
     });
+
     return () => {
       abortController.abort();
     };
-  }, [id, address]);
+  }, [id]);
 
   const handleChange = (name) => (event) => {
-    setUser({ ...user, [name]: event.target.value });
+    const target = event.target.value;
+    if (name in user) {
+      setUser({ ...user, [name]: target });
+    } else {
+      setAddress({ ...address, [name]: target });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (addressExists) {
+      updateAddress(id, { t: jwt.token }, address);
+    } else {
+      createAddress(id, { t: jwt.token }, address);
+    }
   };
 
   return (
     <div className='container'>
       <h2 className='display-5 mt-5'>Profile</h2>
-      <form className='h-100 p-2'>
+      <form className='h-100 p-2' onSubmit={handleSubmit}>
         <fieldset className='my-3 p-3 row'>
           <legend>Personal Information</legend>
           <FormInput
@@ -92,45 +118,7 @@ const Profile = () => {
             handleChange={handleChange('phoneNumber')}
           />
         </fieldset>
-
-        <fieldset className='row p-3'>
-          <legend className='mb-0'>
-            Address
-            <span className='lead small'>
-              (Must be filled out for home pickups)
-            </span>
-          </legend>
-          <FormInput
-            label='Street'
-            name='street'
-            value={user.street}
-            handleChange={handleChange('street')}
-          />
-          <FormInput
-            label='City'
-            name='city'
-            value={user.city}
-            handleChange={handleChange('city')}
-          />
-          <FormInput
-            label='State'
-            name='state'
-            value={user.state}
-            handleChange={handleChange('state')}
-          />
-          <FormInput
-            label='Zipcode'
-            name='zipcode'
-            value={user.zipCode}
-            handleChange={handleChange('zipCode')}
-          />
-          <button
-            className='btn btn-success btn-block btn-lg my-5 col-md-9'
-            required
-          >
-            Submit
-          </button>
-        </fieldset>
+        <Address address={address} handleChange={handleChange} />
       </form>
     </div>
   );

@@ -115,11 +115,19 @@ module.exports = {
   },
 
   readAddress: async (req, res) => {
+    console.log;
     try {
       const { userId } = req.params;
       const user = await User.findById(userId).populate('address');
-      return res.json(user.address);
-    } catch (error) {
+      if (user.address) {
+        return res.status(200).json(user.address);
+      } else {
+        return res.status(200).json({
+          mssg: 'Address has not been created',
+        });
+      }
+    } catch (err) {
+      console.error(err);
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err),
       });
