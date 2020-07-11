@@ -31,9 +31,9 @@ const read = async (id, credentials, signal) => {
   }
 };
 
-const update = async (params, credentials, user) => {
+const update = async (id, credentials, user) => {
   try {
-    let response = await fetch('/api/users/' + params.userId, {
+    let response = await fetch('/api/users/' + id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

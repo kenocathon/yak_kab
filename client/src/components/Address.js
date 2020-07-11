@@ -8,12 +8,7 @@ const Address = (props) => {
   const { street, state, city, zipCode } = props.address;
   return (
     <fieldset className='row p-3'>
-      <legend className='mb-0'>
-        Address
-        <span className='lead small'>
-          (Must be filled out for home pickups)
-        </span>
-      </legend>
+      <legend className='mb-0'>Address</legend>
       <FormInput
         label='Street'
         name='street'
@@ -40,9 +35,9 @@ const Address = (props) => {
       />
       <button
         className='btn btn-success btn-block btn-lg my-5 col-md-9'
-        required
+        disabled={props.buttonDisabled}
       >
-        Submit
+        Update Profile
       </button>
     </fieldset>
   );

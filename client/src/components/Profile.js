@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
 import { read } from '../user/api-user';
@@ -25,12 +26,10 @@ const Profile = () => {
 
   const [addressExists, setAddressExists] = useState(false);
   const [redirectToSignin, setRedirectToSignin] = useState(false);
-  const [error, setError] = useState('');
-
+  const [successMsg, setSuccessMsg] = useState('');
+  const [formChange, setFormChange] = useState(true);
   const id = findId();
   const jwt = auth.isAuthenticated();
-
-  console.log(address);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -70,6 +69,7 @@ const Profile = () => {
 
   const handleChange = (name) => (event) => {
     const target = event.target.value;
+    setFormChange(false);
     if (name in user) {
       setUser({ ...user, [name]: target });
     } else {
@@ -81,14 +81,26 @@ const Profile = () => {
     e.preventDefault();
     if (addressExists) {
       updateAddress(id, { t: jwt.token }, address);
+      setSuccessMsg('Your address has been successfully updated');
     } else {
       createAddress(id, { t: jwt.token }, address);
+      setSuccessMsg('Your address has been added to your profile');
     }
+    setFormChange(true);
   };
+
+  if (redirectToSignin) {
+    return <Redirect to='/signin' />;
+  }
 
   return (
     <div className='container'>
       <h2 className='display-5 mt-5'>Profile</h2>
+      {successMsg && (
+        <p className='text-success font-weight-bold h5 bg-light'>
+          {successMsg}
+        </p>
+      )}
       <form className='h-100 p-2' onSubmit={handleSubmit}>
         <fieldset className='my-3 p-3 row'>
           <legend>Personal Information</legend>
@@ -118,7 +130,11 @@ const Profile = () => {
             handleChange={handleChange('phoneNumber')}
           />
         </fieldset>
-        <Address address={address} handleChange={handleChange} />
+        <Address
+          address={address}
+          handleChange={handleChange}
+          buttonDisabled={formChange}
+        />
       </form>
     </div>
   );
