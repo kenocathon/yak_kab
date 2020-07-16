@@ -39,7 +39,7 @@ const Profile = () => {
       if (data && data.error) {
         setRedirectToSignin(true);
       } else {
-        if (!data.mssg) {
+        if (!data.error) {
           setAddressExists(true);
         }
         setAddress({ ...address, ...data });
@@ -96,7 +96,7 @@ const Profile = () => {
 
   return (
     <div className='container'>
-      <h2 className='display-5 mt-5'>Profile</h2>
+      <h1 className='display-5 mt-5'>Profile</h1>
       {successMsg && (
         <p className='text-success font-weight-bold h5 bg-light'>
           {successMsg}

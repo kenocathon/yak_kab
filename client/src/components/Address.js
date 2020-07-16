@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import readAddress from '../user/api-address';
-import { findId } from '../auth/api-auth';
-import auth from '../auth/auth-helper';
 import FormInput from './FormInput';
 
 const Address = (props) => {

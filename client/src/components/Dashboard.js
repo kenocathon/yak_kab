@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import Transports from '../components/Transports';
-import BookTrip from './BookTrip';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 const Dashboard = () => {
   return (
-    <Fragment>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
       <Transports />
-    </Fragment>
+    </MuiPickersUtilsProvider>
   );
 };
 
