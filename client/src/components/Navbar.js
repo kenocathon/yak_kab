@@ -64,7 +64,7 @@ const Navbar = withRouter(({ history }) => {
               <li className='nav-item'>
                 <NavLink
                   exact
-                  className='nav-link'
+                  className='nav-link mr-3'
                   to='/login'
                   activeClassName='active'
                 >
@@ -84,7 +84,7 @@ const Navbar = withRouter(({ history }) => {
               <li className='nav-item'>
                 <NavLink
                   exact
-                  className='nav-link'
+                  className='nav-link mr-3'
                   to='/account'
                   activeClassName='active'
                 >

@@ -5,7 +5,7 @@ const Address = (props) => {
   const { street, state, city, zipCode } = props.address;
   return (
     <fieldset className='row p-3'>
-      <legend className='mb-0'>Address</legend>
+      <legend className='mb-0'>Home Address</legend>
       <FormInput
         label='Street'
         name='street'

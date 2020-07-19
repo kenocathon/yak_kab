@@ -1,16 +1,24 @@
-import React, { Fragment, useState } from 'react';
-import HomePickup from './HomePickup';
-import ShuttleTrip from './ShuttleTrip';
+import React, { useState } from 'react';
+import TransportForms from './TransportForms';
+import TransportButtons from './TransportButtons';
 
 const Transports = () => {
+  // when one button is selected the other will not be.
+  const [buttonSelect, setButtonSelect] = useState(null);
+
   const wrapperStyles = {
     height: window.outerHeight - 240,
   };
+
+  const tripSelected = (name) => {
+    setButtonSelect(name);
+  };
+
   return (
     <div style={wrapperStyles}>
       <h1 className='mt-4 col-12 '>Transports</h1>
-      <HomePickup />
-      <ShuttleTrip />
+      <TransportButtons handleButton={tripSelected} />
+      <TransportForms selectedTrip={buttonSelect} />
     </div>
   );
 };

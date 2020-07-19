@@ -32,19 +32,6 @@ const Account = () => {
             Profile
           </a>
         </li>
-        <li className='nav-item'>
-          <a
-            className='nav-link'
-            id='contact-tab'
-            data-toggle='tab'
-            href='#contact'
-            role='tab'
-            aria-controls='contact'
-            aria-selected='false'
-          >
-            Contact
-          </a>
-        </li>
       </ul>
       <div className='tab-content' id='myTabContent'>
         <div
@@ -62,14 +49,6 @@ const Account = () => {
           aria-labelledby='profile-tab'
         >
           <Profile />
-        </div>
-        <div
-          className='tab-pane fade'
-          id='contact'
-          role='tabpanel'
-          aria-labelledby='contact-tab'
-        >
-          ...
         </div>
       </div>
     </section>
