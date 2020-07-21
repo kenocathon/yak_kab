@@ -21,29 +21,31 @@ const TransportButtons = ({ handleButton }) => {
   };
 
   return (
-    <div className='container row'>
-      <button
-        name='homePickup'
-        className={
-          tripType === 'homePickup'
-            ? 'btn btn-lg btn-info my-4 col-lg-3 col-12 mr-4'
-            : 'btn btn-lg btn-outline-info my-4 col-lg-3 col-12 mr-4'
-        }
-        onClick={buttonClick}
-      >
-        Schedule Home Pickup
-      </button>
-      <button
-        name='shuttleTrip'
-        className={
-          tripType === 'shuttleTrip'
-            ? 'btn btn-lg btn-info my-4 col-lg-3 col-12'
-            : 'btn btn-lg btn-outline-info my-4 col-lg-3 col-12'
-        }
-        onClick={buttonClick}
-      >
-        Schedule Shuttle Trip
-      </button>
+    <div>
+      <div className='container row'>
+        <button
+          name='homePickup'
+          className={
+            tripType === 'homePickup'
+              ? 'btn btn-lg btn-info my-4 col-lg-3 col-12 mr-4'
+              : 'btn btn-lg btn-outline-info my-4 col-lg-3 col-12 mr-4'
+          }
+          onClick={buttonClick}
+        >
+          Schedule Home Pickup
+        </button>
+        <button
+          name='shuttleTrip'
+          className={
+            tripType === 'shuttleTrip'
+              ? 'btn btn-lg btn-info my-4 col-lg-3 col-12'
+              : 'btn btn-lg btn-outline-info my-4 col-lg-3 col-12'
+          }
+          onClick={buttonClick}
+        >
+          Schedule Shuttle Trip
+        </button>
+      </div>
     </div>
   );
 };

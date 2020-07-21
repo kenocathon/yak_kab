@@ -1,6 +1,6 @@
 const createTransport = async (userId, credentials, transport) => {
   try {
-    let response = await fetch(`/${userId}/transports`, {
+    let response = await fetch(`/api/users/${userId}/transports`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -14,3 +14,21 @@ const createTransport = async (userId, credentials, transport) => {
     console.error(err);
   }
 };
+
+const readTransport = async (userId, credentials) => {
+  try {
+    let response = await fetch(`/api/users/${userId}/transports`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${credentials.t}`,
+      },
+    });
+    return await response.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export { createTransport, readTransport };
