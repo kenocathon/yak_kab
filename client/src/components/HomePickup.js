@@ -64,12 +64,12 @@ const HomePickup = (props) => {
     e.preventDefault();
     const transport = {
       pickUpDate: selectedDate.format('dddd MMM Mo YYYY'),
-      pickUpTime: selectedTime.format('h' + ':' + 'mm'),
+      pickUpTime: selectedTime.format('h:mm'),
       isHomePickup: true,
-      isReturnHome,
       customTrip: {
         dropOffLocation: location.dropOff.selectedBoatRamp,
         pickUpLocation: location.pickUp,
+        isReturnHome,
       },
       shuttlePackage: 'custom',
     };

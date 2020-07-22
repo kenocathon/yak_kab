@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import yakKabLogo from '../img/yakKabLogoWhite.svg';
 import { withRouter, NavLink, Link } from 'react-router-dom';
 import auth from '../auth/auth-helper';
-import { signout } from '../auth/api-auth';
 
 const navStyles = {
   backgroundColor: '#231f20',

@@ -5,8 +5,18 @@ const TransportSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  tripDate: {
-    type: Date,
+ pickUpDate:{
+   type: String,
+ },
+  pickUpTime:{
+    type: String,
+  },
+  isHomePickup:{
+    type: Boolean,
+  },
+  
+  shuttlePackage: {
+    type: String,
   },
   customTrip: {
     dropOffLocation: {
@@ -15,12 +25,9 @@ const TransportSchema = new mongoose.Schema({
     pickUpLocation: {
       type: String,
     },
-    pickUpTime: {
-      type: String,
+    isReturnHome:{
+      type: Boolean
     },
-  },
-  shuttlePackage: {
-    type: String,
   },
 });
 

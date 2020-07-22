@@ -115,7 +115,6 @@ module.exports = {
   },
 
   readAddress: async (req, res) => {
-    console.log;
     try {
       const { userId } = req.params;
       const user = await User.findById(userId).populate('address');
@@ -153,6 +152,7 @@ module.exports = {
   // Controls for Transports
   createTrans: async (req, res) => {
     const transport = new Transport(req.body);
+    console.log(transport)
     const user = req.profile;
     try {
       transport.user = user;

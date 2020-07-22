@@ -18,7 +18,7 @@ const Transports = () => {
   };
 
   const layoutStyles = {
-    minHeight: '38em',
+    minHeight: '40vh',
   };
 
   return (

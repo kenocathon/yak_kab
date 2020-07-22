@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ShuttleTrip from './ShuttleTrip';
 import HomePickup from './HomePickup';
 

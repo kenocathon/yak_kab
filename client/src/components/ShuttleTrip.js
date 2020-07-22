@@ -28,13 +28,13 @@ const ShuttleTrip = (props) => {
     const selectedButton = e.target.name;
     const newState = {};
     const falseButtons = Object.keys(buttonSelect).filter(
-      (button) => button != selectedButton
+      (button) => button !== selectedButton
     );
     for (const key of falseButtons) {
       newState[key] = false;
     }
     setButtonSelect({ ...newState, [selectedButton]: true });
-    if (selectedButton === 'shortTrip') {
+    if (selectedButton === 'longTrip') {
       setTripTime('10:00am');
     } else if (selectedButton === 'mediumTrip') {
       setTripTime('12:00pm');
@@ -49,12 +49,12 @@ const ShuttleTrip = (props) => {
     const selectedPackage = Object.keys(buttonSelect).filter(
       (key) => buttonSelect[key]
     );
-    if (selectedPackage) {
+    
+     if (selectedPackage) {
       const transport = {
         pickUpDate: selectedDate.format('dddd MMM Mo YYYY'),
         pickUpTime: tripTime,
         isHomePickup: false,
-        isReturnHome: false,
         shuttlePackage: selectedPackage[0],
       };
       createTransport(userId, { t: jwt.token }, transport).then((data) => {

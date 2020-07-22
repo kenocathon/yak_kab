@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const FormInput = (props) => (
-  <Fragment>
+  <div className='form-group'>
     <label htmlFor='props.name' className='mb-2'>
       {props.label}
     </label>
@@ -13,7 +13,7 @@ const FormInput = (props) => (
       onChange={props.handleChange}
       value={props.value}
     />
-  </Fragment>
+  </div>
 );
 
 export default FormInput;

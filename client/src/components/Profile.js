@@ -29,11 +29,11 @@ const Profile = () => {
   const [successMsg, setSuccessMsg] = useState('');
   const [formChange, setFormChange] = useState(true);
   const id = findId();
-  const jwt = auth.isAuthenticated();
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
+    const jwt = auth.isAuthenticated();
 
     readAddress(id, { t: jwt.token }, signal).then((data) => {
       if (data && data.error) {
@@ -48,11 +48,13 @@ const Profile = () => {
     return () => {
       abortController.abort();
     };
-  }, [id]);
+  }, [id, address]);
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
+    const jwt = auth.isAuthenticated();
+
 
     read(id, { t: jwt.token }, signal).then((data) => {
       if (data && data.error) {
@@ -65,7 +67,7 @@ const Profile = () => {
     return () => {
       abortController.abort();
     };
-  }, [id]);
+  }, [id, user]);
 
   const handleChange = (name) => (event) => {
     const target = event.target.value;
@@ -79,6 +81,8 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const jwt = auth.isAuthenticated();
+
     if (addressExists) {
       updateAddress(id, { t: jwt.token }, address);
       setSuccessMsg('Your address has been successfully updated');

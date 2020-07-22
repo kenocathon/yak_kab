@@ -1,4 +1,3 @@
-import { signout } from './api-auth';
 
 const auth = {
   authenticate(jwt, cb) {

@@ -1,12 +1,6 @@
 import React from 'react';
 
 const Footer = () => {
-  const footerStyles = {
-    position: 'fixed',
-    left: '0',
-    bottom: '0',
-    width: '100%',
-  };
   return (
     <footer className='bg-dark page-footer mt-5'>
       <div className='container text-center text-white py-5'>
