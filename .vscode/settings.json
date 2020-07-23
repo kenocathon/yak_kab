@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/6c931cc5-2f9f-496e-afa4-52815476cf47/resourceGroups/NodeApp/providers/Microsoft.Web/sites/Yak-Kab",
+  "appService.deploySubpath": ""
+}
