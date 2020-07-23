@@ -5,11 +5,21 @@ import { createTransport } from '../user/api-transport';
 import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
 
+const boatRampOptions = [
+  'Cartersville Leak Mounds',
+  'Neels Landing',
+  'Hardin Bridge',
+  'Euharlee Rd.',
+];
+
 const HomePickup = (props) => {
+ 
   const [selectedDate, handleDateChange] = useState(moment());
   const [selectedTime, handleTimeChange] = useState(moment());
-  const [useHomeAddress, setUseHomeAddress] = useState(true);
-  const [isReturnHome, setIsReturnHome] = useState(true);
+  const [checkbox, setCheckbox] = useState({
+    useHomeAddress: true,
+    isReturnHome: true
+  })
 
   const [message, setMessage] = useState({
     error: '',
@@ -23,42 +33,36 @@ const HomePickup = (props) => {
       state: 'GA',
       zipCode: '',
     },
-    dropOff: {
-      selectedBoatRamp: '',
-    },
+    dropOff: 'Cartersville Leak Mounds'
   });
 
-  const boatRampOptions = [
-    'Cartersville Leak Mounds',
-    'Neels Landing',
-    'Hardin Bridge',
-    'Euharlee Rd.',
-  ];
 
   const jwt = auth.isAuthenticated();
   const userId = findId();
 
+  const handleCheckBox = (name) => (event) => {
+    const checked = event.target.checked
+    setCheckbox({
+      [name]: checked
+    })
+    console.log(name)
+  }
+  const handleSelect = (event) => {
+    const value = event.target.value
+    setLocation({
+      dropOff: value
+    })
+  }
+  
   const handleOnChange = (name) => (event) => {
     const value = event.target.value;
-    if (name === 'checkbox') {
-      setUseHomeAddress(!useHomeAddress);
-    } else if (name === 'returnHome') {
-      setIsReturnHome(!isReturnHome);
-    } else if (name === 'select') {
-      setLocation({
-        dropOff: {
-          selectedBoatRamp: value,
-        },
-      });
-    } else {
-      setLocation({
-        ...location,
-        pickUp: {
-          [name]: value,
-        },
-      });
-    }
-  };
+    setLocation({
+      ...location,
+      pickUp: {
+        [name]: value,
+      }
+    })
+  }
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -67,9 +71,9 @@ const HomePickup = (props) => {
       pickUpTime: selectedTime.format('h:mm'),
       isHomePickup: true,
       customTrip: {
-        dropOffLocation: location.dropOff.selectedBoatRamp,
+        dropOffLocation: location.dropOff,
         pickUpLocation: location.pickUp,
-        isReturnHome,
+        isReturnHome: checkbox.isReturnHome,
       },
       shuttlePackage: 'custom',
     };
@@ -79,10 +83,10 @@ const HomePickup = (props) => {
         setMessage({ error: data.error });
       } else {
         setMessage({ successMsg: 'Your trip was scheduled' });
-        props.trackTransports();
+       props.trackTransports()
       }
     });
-  };
+  }
 
   return (
     <div className='container row'>
@@ -117,7 +121,8 @@ const HomePickup = (props) => {
             name='boatRamps'
             className='form-control w-75'
             id='boatRamps'
-            onChange={handleOnChange('select')}
+            value={location.dropOff}
+            onChange={handleSelect}
           >
             {boatRampOptions.map((boatRamp) => {
               return (
@@ -135,8 +140,8 @@ const HomePickup = (props) => {
                 name='useHomeAddress'
                 id='useHomeAddress'
                 className='form-check-input'
-                checked={useHomeAddress}
-                onChange={handleOnChange('checkbox')}
+                checked={checkbox.useHomeAddress}
+                onChange={handleCheckBox('useHomeAddress')}
               />
               <label htmlFor='useHomeAddress' className='form-check-label h6'>
                 Pickup from home address
@@ -148,8 +153,8 @@ const HomePickup = (props) => {
                 name='returnHome'
                 id='returnHome'
                 className='form-check-input'
-                checked={isReturnHome}
-                onChange={handleOnChange('returnHome')}
+                checked={checkbox.isReturnHome}
+                onChange={handleCheckBox('isreturnHome')}
               />
               <label htmlFor='returnHome' className='form-check-label h6'>
                 Return Trip(before 8pm)
@@ -157,7 +162,7 @@ const HomePickup = (props) => {
             </div>
           </div>
 
-          {!useHomeAddress && (
+          {!checkbox.useHomeAddress && (
             <fieldset className='w-75'>
               <legend>Pickup Location</legend>
               <label className='h6' htmlFor='pickUpLocation'>
@@ -167,7 +172,7 @@ const HomePickup = (props) => {
                 type='text'
                 name='street'
                 id='street'
-                required={!useHomeAddress}
+                required={!checkbox.useHomeAddress}
                 className='form-control'
                 value={location.street}
                 onChange={handleOnChange('street')}
@@ -179,7 +184,7 @@ const HomePickup = (props) => {
                 type='text'
                 name='city'
                 id='city'
-                required={!useHomeAddress}
+                required={!checkbox.useHomeAddress}
                 className='form-control'
                 value={location.city}
                 onChange={handleOnChange('city')}
@@ -191,7 +196,7 @@ const HomePickup = (props) => {
                 type='text'
                 name='state'
                 id='state'
-                required={!useHomeAddress}
+                required={!checkbox.useHomeAddress}
                 className='form-control'
                 value={location.state}
               />
@@ -202,7 +207,7 @@ const HomePickup = (props) => {
                 type='text'
                 name='zipCode'
                 id='zipCode'
-                required={!useHomeAddress}
+                required={!checkbox.useHomeAddress}
                 className='form-control'
                 value={location.zipCode}
                 onChange={handleOnChange('zipCode')}
@@ -219,6 +224,7 @@ const HomePickup = (props) => {
       </form>
     </div>
   );
-};
+}
+  
 
 export default HomePickup;

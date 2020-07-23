@@ -225,7 +225,7 @@ module.exports = {
       await Transport.findByIdAndDelete(id);
       await user.save();
       res.json({
-        msg: `transport deleted: ${id}`,
+        msg: `transport deleted`,
       });
     } catch (err) {
       console.error(err);

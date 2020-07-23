@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FormInput from './FormInput';
-import { read, update, remove } from '../user/api-user';
+import { read, update} from '../user/api-user';
 import { readAddress, updateAddress, createAddress } from '../user/api-address';
 import { findId } from '../auth/api-auth';
 import auth from '../auth/auth-helper';
@@ -28,27 +28,29 @@ const Profile = () => {
   const [redirectToSignin, setRedirectToSignin] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [formChange, setFormChange] = useState(true);
-  const id = findId();
+  const userId = findId();
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
     const jwt = auth.isAuthenticated();
 
-    readAddress(id, { t: jwt.token }, signal).then((data) => {
-      if (data && data.error) {
-        setRedirectToSignin(true);
-      } else {
-        if (!data.error) {
-          setAddressExists(true);
-        }
-        setAddress({ ...address, ...data });
+    readAddress(userId, { t: jwt.token }, signal).then((data) => {
+      const addressFunction = () => {
+        if (data && data.error) {
+          setRedirectToSignin(true);
+        } else {
+            setAddressExists(true);
+            setAddress({  ...data });
+          }
       }
+     addressFunction()
     });
+
     return () => {
       abortController.abort();
     };
-  }, [id, address]);
+  },[userId] );
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -56,18 +58,18 @@ const Profile = () => {
     const jwt = auth.isAuthenticated();
 
 
-    read(id, { t: jwt.token }, signal).then((data) => {
+    read(userId, { t: jwt.token }, signal).then((data) => {
       if (data && data.error) {
         setRedirectToSignin(true);
       } else {
-        setUser({ ...user, ...data });
+        setUser({ ...data });
       }
     });
 
     return () => {
       abortController.abort();
     };
-  }, [id, user]);
+  }, [userId]);
 
   const handleChange = (name) => (event) => {
     const target = event.target.value;
@@ -84,13 +86,13 @@ const Profile = () => {
     const jwt = auth.isAuthenticated();
 
     if (addressExists) {
-      updateAddress(id, { t: jwt.token }, address);
+      updateAddress(userId, { t: jwt.token }, address);
       setSuccessMsg('Your address has been successfully updated');
     } else {
-      createAddress(id, { t: jwt.token }, address);
+      createAddress(userId, { t: jwt.token }, address);
       setSuccessMsg('Your address has been added to your profile');
     }
-    update(id, { t: jwt.token }, user);
+    update(userId, { t: jwt.token }, user);
     setFormChange(true);
   };
 

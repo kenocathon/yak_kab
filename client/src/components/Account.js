@@ -1,6 +1,6 @@
 import React from 'react';
-import Dashboard from './Dashboard';
 import Profile from './Profile';
+import Transports from './Transports';
 
 const Account = () => {
   return (
@@ -40,7 +40,7 @@ const Account = () => {
           role='tabpanel'
           aria-labelledby='dashboard-tab'
         >
-          <Dashboard />
+          <Transports />
         </div>
         <div
           className='tab-pane fade'

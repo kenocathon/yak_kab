@@ -31,4 +31,20 @@ const readTransport = async (userId, credentials) => {
   }
 };
 
-export { createTransport, readTransport };
+const removeTransport = async (userId, credentials, transportId) => {
+  try {
+    let response = await fetch(`api/users/${userId}/transports/${transportId}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${credentials.t}`
+      },
+    })
+    return await response.json();
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export { createTransport, readTransport, removeTransport };

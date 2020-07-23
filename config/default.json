@@ -2,3 +2,5 @@
   "mongoURI": "mongodb+srv://admin:QM8eDeJcl5F57RDR@yak-kab-jsnyw.mongodb.net/yak-kab?retryWrites=true&w=majority",
   "jwtSecret": "secret_key_temp"
 }
+
+ "mongodb+srv://yak-kab-jsnyw.mongodb.net/yak-kab" --username admin
