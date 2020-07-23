@@ -3,4 +3,3 @@
   "jwtSecret": "secret_key_temp"
 }
 
- "mongodb+srv://yak-kab-jsnyw.mongodb.net/yak-kab" --username admin

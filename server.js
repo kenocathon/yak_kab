@@ -1,5 +1,6 @@
 const connectDB = require('./config/db');
 const express = require('express');
+const path = require('path')
 
 const app = express();
 
@@ -9,6 +10,10 @@ app.use(express.json({ extended: false }));
 connectDB();
 
 const PORT = process.env.PORT || 8000;
+
+// serve static build for production
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 
 // Configure Routes
 app.use('/api/users', require('./routes/api/users'));
